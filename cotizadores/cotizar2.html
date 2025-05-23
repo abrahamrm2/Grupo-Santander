@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Calculadora de Préstamo</title>
+  <style>
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    th,
+    td {
+      padding: 8px;
+      text-align: left;
+      border-bottom: 1px solid #ddd;
+    }
+
+    th {
+      background-color: #f2f2f2;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>Calculadora de Préstamo</h1>
+  <form id="loan-form">
+    <label for="amount">Monto del Préstamo:</label>
+    <input type="number" id="amount" name="amount" required>
+    <br>
+    <label for="interest">Tasa de Interés (%):</label>
+    <input type="number" id="interest" name="interest" required>
+    <br>
+    <label for="years">Años a Pagar:</label>
+    <input type="number" id="years" name="years" required>
+    <br>
+    <label for="name">Nombre:</label>
+    <input type="text" id="name" name="name" required>
+    <br>
+    <button type="button" onclick="calculateLoan()">Calcular</button>
+  </form>
+  <br>
+  <table id="loan-table">
+    <thead>
+      <tr>
+        <th>Pago</th>
+        <th>Interés</th>
+        <th>Capital</th>
+        <th>Cuota Total</th>
+        <th>Saldo Restante</th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+    <tfoot>
+      <tr>
+        <th>Total</th>
+        <td id="total-interest"></td>
+        <td id="total-principal"></td>
+        <td id="total-payment"></td>
+        <td></td>
+      </tr>
+    </tfoot>
+  </table>
+
+  <script>
+    function calculateLoan() {
+      const amount = parseFloat(document.getElementById("amount").value);
+      const interest = parseFloat(document.getElementById("interest").value) / 100 / 12;
+      const years = parseFloat(document.getElementById("years").value);
+      const name = document.getElementById("name").value;
+      const months = years * 12;
+      const payment = (amount * interest) / (1 - Math.pow(1 + interest, -months));
+      let totalInterest = 0;
+      let totalPrincipal = 0;
+
+      const loanTable = document.getElementById("loan-table").getElementsByTagName("tbody")[0];
+      loanTable.innerHTML = "";
+
+      for (let i = 1; i <= months; i++) {
+        const interest_amount = amount * interest;
+        const principal_amount = payment - interest_amount;
+        const remaining_balance = amount - totalPrincipal;
+        totalInterest += interest_amount;
+        totalPrincipal += principal_amount;
+
+        const row = document.createElement("tr");
+        row.innerHTML = `
+          <td>${i}</td>
+          <td>\[${interest_amount.toFixed(2)}\]</td>
+          <td>\[${principal_amount.toFixed(2)}\]</td>
+          <td>\[${payment.toFixed(2)}\]</td>
+          <td>\[${remaining_balance.toFixed(2)}\]</td>
+        `;
+        loanTable.appendChild(row);
+      }
+
+      document.getElementById("total-interest").textContent = `\[${totalInterest.toFixed(2)}\]`;
+      document.getElementById("total-principal").textContent = `\[${totalPrincipal.toFixed(2)}\]`;
+      document.getElementById("total-payment").textContent = `\[${(totalInterest + totalPrincipal).toFixed(2)}\]`;
+    }
+  </script>
+</body>
+
+</html>

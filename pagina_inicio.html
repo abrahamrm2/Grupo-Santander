@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Página de Inicio</title>
+    <style>
+         <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            text-align: center;
+            background-color: #f0f0f0;
+        }
+
+        header {
+            background-color: #083c9b;
+            color: #fff;
+            padding: 15px;
+            text-align: center;
+        }
+
+        nav {
+            background-color: #616e61;
+            padding: 10px;
+            display: flex;
+            justify-content: space-around;
+        }
+
+        nav a {
+            color: #ffffff;
+            text-decoration: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+        }
+
+        nav a:hover {
+            background-color: #555;
+        }
+
+        main {
+            flex: 1;
+            padding: 20px;
+        }
+        #icono {
+        width: 600px; /* Ancho para el icono pequeño */
+        height: auto; /* Altura se ajustará automáticamente para mantener la proporción original */
+        align: center;
+        }
+        button {
+        background-color: #C69680;
+        color: #002F41;
+        padding: 10px 15px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 16px;
+        }
+        .centrado {
+        text-align: center;
+        }
+
+    </style>
+    </style>
+</head>
+<body bgcolor="#002F41">
+
+    <h1 align="center"><font color="white">Bienvenido, Sr. Abraham Rodriguez</font></h1>
+    <div class="centrado">
+        <!-- Contenido de la página principal -->
+        <img id="icono" src="logo2.jpg" align="center">
+        <br>
+        <button onclick="irAPagina2()" id="btnIrAPagina2" align="center">INGRESAR</button>
+    </div>
+    <script>
+        function irAPagina2() {
+            // Redirige a la página2.html
+            window.location.href = 'sistema1.html';
+        }
+    </script>
+</body>
+
+</html>

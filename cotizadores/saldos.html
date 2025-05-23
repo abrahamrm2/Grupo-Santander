@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<head>
+    <title>Tabla de Pagos</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            text-align: center;
+            margin: 50px;
+        }
+
+        form {
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        input {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 16px;
+            box-sizing: border-box;
+        }
+
+        button {
+            background-color: #002F41;
+            color: #fff;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        #pagos {
+            margin-top: 20px;
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        #pagos th, #pagos td {
+            border: 1px solid #C69680;
+            padding: 8px;
+            text-align: center;
+        }
+
+        #pagos th {
+            background-color:#002F41 ;
+            color: white;
+        }
+        #icono {
+        width: 400px; /* Ancho para el icono pequeño */
+        height: auto; /* Altura se ajustará automáticamente para mantener la proporción original */
+        
+        }
+        p{
+            background-color: #002F41
+            white
+        }
+    </style>
+</head>
+<body>
+    <h1>Calculadora de creditos con cuota sobre saldos</h1>
+    <img src="logo2.jpg" id="icono" align="left">
+    <form id="amortization-form">
+        <label for="nombre">Nombre:</label>
+        <input type="text" id="nombre" name="nombre" required>
+        <br>
+        <label for="fecha">Fecha:</label>
+        <input type="date" id="fecha" name="fecha" required>
+        <br>
+        <label for="monto">Monto:</label>
+        <input type="number" id="monto" name="monto" required>
+        <br>
+        <label for="interes">Interes:</label>
+        <input type="number" id="interes" name="interes" required>
+        <br>
+        <label for="anos">Años:</label>
+        <input type="number" id="anos" name="anos" required>
+        <br>
+        <button type="button" onclick="calcularAmortizacion()">Calcular</button>
+    </form>
+    <br>
+    <table id="pagos">
+        <thead>
+            <tr>
+                <th>Mes</th>
+                <th>Interes</th>
+                <th>Capital</th>
+                <th>Cuota Total</th>
+                <th>Saldo Restante</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+        <tfoot>
+            <tr>
+                <td>Total</td>
+                <td id="total-interes"></td>
+                <td id="total-capital"></td>
+                <td id="total-cuota"></td>
+                <td></td>
+            </tr>
+        </tfoot>
+    </table>
+
+    <script>
+        function calcularAmortizacion() {
+            const nombre = document.getElementById("nombre").value;
+            const fecha = document.getElementById("fecha").value;
+            const monto = parseFloat(document.getElementById("monto").value);
+            const interes = parseFloat(document.getElementById("interes").value) / 100 / 12;
+            const anos = parseFloat(document.getElementById("anos").value);
+            const meses = anos * 12;
+            let saldoRestante = monto;
+            let totalInteres = 0;
+            let totalCapital = 0;
+            const tablaBody = document.querySelector("#pagos tbody");
+            tablaBody.innerHTML = "";
+
+            for (let i = 1; i <= meses; i++) {
+                const interesActual = saldoRestante * interes;
+                const capitalActual = Math.min(saldoRestante, (saldoRestante * interes / (1 - Math.pow(1 + interes, -(meses - i + 1)))));
+                saldoRestante -= capitalActual;
+                totalInteres += interesActual;
+                totalCapital += capitalActual;
+                const cuotaTotal = interesActual + capitalActual;
+
+                const row = document.createElement("tr");
+                row.innerHTML = `
+                    <td>${i}</td>
+                    <td>\[${interesActual.toFixed(2)}\]</td>
+                    <td>\[${capitalActual.toFixed(2)}\]</td>
+                    <td>\[${cuotaTotal.toFixed(2)}\]</td>
+                    <td>\[${saldoRestante.toFixed(2)}\]</td>
+                `;
+                tablaBody.appendChild(row);
+            }
+
+            document.getElementById("total-interes").textContent = `\[${totalInteres.toFixed(2)}\]`;
+            document.getElementById("total-capital").textContent = `\[${totalCapital.toFixed(2)}\]`;
+            document.getElementById("total-cuota").textContent = `\[${(totalInteres + totalCapital).toFixed(2)}\]`;
+        }
+    </script>
+</body>
+
+</html>

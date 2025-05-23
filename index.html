@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Página de Inicio</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            text-align: center;
+            text-color: white;
+            margin: 50px;
+        }
+
+        #loginForm {
+            max-width: 300px;
+            margin: 0 auto;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            box-sizing: border-box;
+        }
+
+        button {
+            background-color: #C69680;
+            color: #002F41;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        h1 {
+        color: #C69680; /* Cambia el color del título a azul */
+        }
+        label {
+        color: #C69680 ; /* Cambia el color del texto del label a rojo */
+        }
+         
+        #icono {
+        width: 400px; /* Ancho para el icono pequeño */
+        height: auto; /* Altura se ajustará automáticamente para mantener la proporción original */
+        }
+    </style>
+</head>
+<body bgcolor="#002F41">
+
+    <h1> Pagina de Inicio</h1>
+    <img id="icono" align="left" src= "logo2.jpg" alt="logo">
+
+    <div id="loginForm">
+        <form id="formulario" onsubmit="validarLogin(); return false;">
+            <label for="usuario" color:"white">Usuario:</label>
+            <input type="text" id="usuario" name="usuario" required>
+
+            <label for="contrasena">Contraseña:</label>
+            <input type="password" id="contrasena" name="contrasena" required>
+
+            <button type="submit">Entrar</button>
+        </form>
+    </div>
+
+    <script>
+        function validarLogin() {
+            var usuario = document.getElementById('usuario').value;
+            var contrasena = document.getElementById('contrasena').value;
+
+            // Validar credenciales
+            if (usuario === 'Abraham Rodriguez' && contrasena === 'arma159') {
+                window.location.href = 'pagina_inicio.html';
+            } else {
+                alert('Credenciales incorrectas. Intenta nuevamente.');
+                }   
+            if (usuario === 'Erick' && contrasena === '12345678') {
+                window.location.href = 'pagina_inicio.html';
+            } else {
+                ('credencial incorrecta');
+                }
+            
+        }
+    </script>
+</body>
+</html>

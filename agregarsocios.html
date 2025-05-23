@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario de Solicitud de Crédito</title>
+    <script src="https://unpkg.com/html2pdf.js@0.10.0/dist/html2pdf.bundle.js"></script>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            text-align: center;
+            margin: 50px;
+            color: #C69680;
+        
+        }
+
+        form {
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        input {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 16px;
+            box-sizing: border-box;
+        }
+
+        button {
+            background-color: #C69680;
+            color: #002F41;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        #tablaResultados {
+            margin-top: 20px;
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        #tablaResultados th, #tablaResultados td {
+            border: 1px solid #C69680;
+            padding: 8px;
+            text-align: center;
+        }
+
+        #tablaResultados th {
+            background-color:#002F41 ;
+            color: white;
+        }
+        #icono {
+        width: 400px; /* Ancho para el icono pequeño */
+        height: auto; /* Altura se ajustará automáticamente para mantener la proporción original */
+        
+        }
+         header {
+            background-color: #083c9b;
+            color: #fff;
+            padding: 15px;
+            text-align: center;
+        }
+
+        nav {
+            background-color: #616e61;
+            padding: 10px;
+            display: flex;
+            justify-content: space-around;
+        }
+
+        nav a {
+            color: #ffffff;
+            text-decoration: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+        }
+
+        nav a:hover {
+            background-color: #555;
+        }
+    </style>
+</head>
+<body bgcolor="#002F41">
+
+<header>
+    <h1>Agregar socios</h1>
+</header>
+
+    <form id="solicitudForm">
+        <label for="nombre">Nombre del Solicitante:</label>
+        <input type="text" id="nombre" name="nombre" required>
+
+        <label for="fecha">Fecha de Solicitud:</label>
+        <input type="date" id="fecha" name="fecha" required>
+
+        <label for="monto">DPI:</label>
+        <input type="number" id="monto" name="monto" required>
+
+        <label for="telefono">Telefono:</label>
+        <input type="number" id="telefono" name="telefono" required>
+
+        <button type="button" onclick="generarPDF()">Generar PDF</button>
+    </form>
+
+    <script>
+        function generarPDF() {
+            const nombre = document.getElementById('nombre').value;
+            const fecha = document.getElementById('fecha').value;
+            const monto = document.getElementById('monto').value;
+            const telefono = document.getElementById('telefono').value;
+
+            const contenidoHTML = `
+                <img id="icono" src="logo.png" alt="logo">
+                <h1>Nuevo socio: ${nombre}</h1>
+                <p>fecha de ingreso a la corporacion:${fecha}
+                <p>DPI:${monto}
+                <p>Telefono:${telefono}
+                
+            `;
+
+            const elemento = document.createElement('div');
+            elemento.innerHTML = contenidoHTML;
+
+            html2pdf(elemento, {
+                margin: 10,
+                filename: 'añadirsocio.pdf',
+                image: { type: 'jpeg', quality: 0.98 },
+                html2canvas: { scale: 2 },
+                jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+            });
+        }
+    </script>
+
+</body>
+</html>

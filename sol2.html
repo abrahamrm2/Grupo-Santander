@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario de Solicitud de Crédito</title>
+    <script src="https://unpkg.com/html2pdf.js@0.10.0/dist/html2pdf.bundle.js"></script>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 50px;
+        
+        }
+
+        form {
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: white;
+        }
+
+        input {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 16px;
+            box-sizing: border-box;
+        }
+
+        button {
+            background-color: #C69680;
+            color: #002F41;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            text-align: center;
+        }
+
+        #tablaResultados {
+            margin-top: 20px;
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        #tablaResultados th, #tablaResultados td {
+            border: 1px solid #C69680;
+            padding: 8px;
+            text-align: center;
+        }
+
+        #tablaResultados th {
+            background-color:#002F41 ;
+            color: white;
+        }
+        #icono {
+        width: 400px; /* Ancho para el icono pequeño */
+        height: auto; /* Altura se ajustará automáticamente para mantener la proporción original */
+        
+        }
+         header {
+            background-color: #083c9b;
+            color: #fff;
+            padding: 15px;
+            text-align: center;
+        }
+
+        nav {
+            text-align: center;
+            padding: 10px;
+            display: flex;
+            justify-content: space-around;
+        }
+
+       
+        #iconos {
+        width: 150px; /* Ancho para el icono pequeño */
+        height: auto; /* Altura se ajustará automáticamente para mantener la proporción original */
+        text-align: left;
+        }
+        si{
+            color: black;
+            padding: 5px;
+
+        }
+        
+    </style>
+</head>
+<body bgcolor="#002F41">
+<header>
+    <nav>
+    <h1>Formulario de Cobros administrativos</h1>
+</header>
+    <img align="left" id="icono"= src="logo.png">
+    <form id="solicitudForm">
+        <label for="nombre">Nombre:</label>
+        <input type="text" id="nombre" name="nombre" required>
+
+        <label for="fecha">fecha:</label>
+        <input type="date" id="fecha" name="fecha" required>
+
+        <label for="monto">Documento de costo de escrituras:</label>
+        <input type="number" id="monto" name="monto" required>
+
+        <label for="lote">Costos administrativos:</label>
+        <input type="number" id="lote" name="lote" required>
+
+        <label for="costo1">Reconocimiento de deuda:</label>
+        <input type="number" id="costo1" name="costo1" required>
+
+        <label for="credito">No. de credito:</label>
+        <input type="text" id="credito" name="credito" required>
+
+        <button type="button" onclick="generarPDF()">Generar solicitud</button>
+    </form>
+    </nav>
+
+    <script id="si">
+        function generarPDF() {
+            const nombre = document.getElementById('nombre').value;
+            const fecha = document.getElementById('fecha').value;
+            const monto = document.getElementById('monto').value;
+            const lote = document.getElementById('lote').value;
+            const costo1 = document.getElementById('costo1').value;
+            const credito = document.getElementById('credito').value;
+
+    
+            const contenidoHTML = `
+                <style>
+                    header{
+                    background color: #002F41;
+                    }
+                    body {
+                        font-size: 15px;
+                    }
+                    h1 {
+                        font-size: 16px;
+                    }
+                    p {
+                        font-size: 12px;
+                        margin: 5px 0; /* Agrega un margen vertical a los párrafos */
+                    }
+                    .firma {
+                        display: flex;
+                        justify-content: space-between;
+                        align-items: flex-end;
+                    }
+                    .firma p {
+                        margin: 0; /* Elimina el margen vertical de los párrafos dentro de la clase "firma" */
+                    }
+                </style>
+                <header>                    
+                <img id="iconos" src="logo.png" alt="logo">
+                </header>
+                <h1>Gastos internos del credito:</h1>
+                <p>Credito a nombre de: ${nombre}</p>
+                <p>Fecha: ${fecha}</p>
+                <p>Costo administrativos: ${lote}</p>
+                <p>Documento de costo de escrituras: ${monto}</p>
+                <p>Reconocimiento de deuda: ${costo1}</p>
+                <p>Gastos realizados en el tramite de el credito de ${nombre} cuyo credito es el numero ${credito} y su finalizacion fue el ${fecha} en la ciudad de jalapa.</p>
+                <br>
+                <br>
+                <br>
+                <div class="firma">
+                    <p align="left">__________________________________</p>
+                    <p align="right">___________________</p>
+                    <p align="center">__________________________________</p>
+                </div>
+                <div class="firma">
+                    <p align="left">Nestor Gonzalo Rodriguez Colindres</p>
+                    <p align="right">${nombre}</p>
+                    <p align="center">Erick Gilberto Rodriguez Colindres</p>
+                </div>
+            `;
+    
+            const elemento = document.createElement('div');
+            elemento.innerHTML = contenidoHTML;
+    
+            html2pdf(elemento, {
+                margin: 10,
+                filename: 'gastos de.pdf',
+                image: { type: 'jpeg', quality: 0.98 },
+                html2canvas: { scale: 2 },
+                jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+            });
+        }
+    </script>
+    
+    
+
+</body>
+</html>

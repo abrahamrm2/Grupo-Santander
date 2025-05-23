@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario de Solicitud de Crédito</title>
+    <script src="https://unpkg.com/html2pdf.js@0.10.0/dist/html2pdf.bundle.js"></script>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 50px;
+        
+        }
+
+        form {
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: white;
+        }
+
+        input {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 16px;
+            box-sizing: border-box;
+        }
+
+        button {
+            background-color: #C69680;
+            color: #002F41;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            text-align: center;
+        }
+
+        #tablaResultados {
+            margin-top: 20px;
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        #tablaResultados th, #tablaResultados td {
+            border: 1px solid #C69680;
+            padding: 8px;
+            text-align: center;
+        }
+
+        #tablaResultados th {
+            background-color:#002F41 ;
+            color: white;
+        }
+        #icono {
+        width: 400px; /* Ancho para el icono pequeño */
+        height: auto; /* Altura se ajustará automáticamente para mantener la proporción original */
+        
+        }
+         header {
+            background-color: #083c9b;
+            color: #fff;
+            padding: 15px;
+            text-align: center;
+        }
+
+        nav {
+            text-align: center;
+            padding: 10px;
+            display: flex;
+            justify-content: space-around;
+        }
+
+       
+        #iconos {
+        width: 150px; /* Ancho para el icono pequeño */
+        height: auto; /* Altura se ajustará automáticamente para mantener la proporción original */
+        text-align: left;
+        }
+        si{
+            color: black;
+
+        }
+    </style>
+</head>
+<body bgcolor="#002F41">
+<header>
+    <nav>
+    <h1>Formulario de Solicitud de Crédito</h1>
+</header>
+    <img align="left" id="icono"= src="logo.png">
+    <form id="solicitudForm">
+        <label for="nombre">Nombre del Solicitante:</label>
+        <input type="text" id="nombre" name="nombre" required>
+
+        <label for="fecha">Fecha de Solicitud:</label>
+        <input type="date" id="fecha" name="fecha" required>
+
+        <label for="monto">Monto Solicitado:</label>
+        <input type="number" id="monto" name="monto" required>
+
+        <label for="lote">Numero de dpi:</label>
+        <input type="number" id="lote" name="lote" required>
+
+        <button type="button" onclick="generarPDF()">Generar solicitud</button>
+    </form>
+    </nav>
+
+    <script id="si">
+        function generarPDF() {
+            const nombre = document.getElementById('nombre').value;
+            const fecha = document.getElementById('fecha').value;
+            const monto = document.getElementById('monto').value;
+            const lote = document.getElementById('lote').value;
+
+            const contenidoHTML = `
+                <img id="iconos" src="logo.png" alt="logo">
+                <h1>Carta de Solicitud de Crédito</h1>
+                <p>A nombre de: ${nombre}</p>
+                <p>Fecha: ${fecha}</p>
+                <p>DPI:${lote}
+                <p> Consejo de administracion de Grupo Santander,</p>
+                <p>${nombre} se acerca a la agencia "Inversiones Santander" con el propósito de solicitar un credito en la entidad financiera. El cliente busca obtener el respaldo
+                financiero necesario por parte de la corporación. Este paso inicial involucra la interacción directa con los
+                representantes de la agencia, donde el cliente expone sus cualidades financieras y discute las condiciones y términos
+                del crédito que está considerando. Este encuentro es fundamental para establecer una comunicación efectiva y
+                transparente, permitiendo que ambas partes comprendan completamente las expectativas y responsabilidades asociadas con
+                la solicitud. El monto de la solicitud haciende a Q.${monto}.00 quetzales. Tambien acepta las politicas de cobro  mensual
+                 e intereses anuales de inversiones Santander que son los pagos mensuales el primer dia de cada mes, que son los pagos mensuales ya estipulados en la cotizacion. En dado caso exisita mora se cobrará Q.5.00 de mora por cada dia atrasado en el pago, Q.100.00 de multa por cada mes insolvente y 3 meses de limite antes de proceder legalmente. </p>
+                <br>
+                <p align="center">Atentamente.</p>
+                <p>El cliente: ${nombre} Queda a la espera de su respuesta.</p>
+                <br>
+                <p align="left">Nestor Gonzalo Rodriguez Colindres</p>
+                <p align="right">${nombre}</p>
+                <p align="center">abogado</p>
+
+            `;
+
+            const elemento = document.createElement('div');
+            elemento.innerHTML = contenidoHTML;
+
+            html2pdf(elemento, {
+                margin: 10,
+                filename: '${nombre}.pdf',
+                image: { type: 'jpeg', quality: 0.98 },
+                html2canvas: { scale: 2 },
+                jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+            });
+        }
+    </script>
+
+</body>
+</html>

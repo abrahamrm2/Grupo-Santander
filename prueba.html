@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Calculadora de Prestamo</title>
+     <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            text-align: center;
+            margin: 50px;
+        }
+
+        form {
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        input {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 16px;
+            box-sizing: border-box;
+        }
+
+        button {
+            background-color: #002F41;
+            color: #fff;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        #tablaPagos {
+            margin-top: 20px;
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        #tablaPagos th, #tablaPagos td {
+            border: 1px solid #C69680;
+            padding: 8px;
+            text-align: center;
+        }
+
+        #tablaPagos th {
+            background-color:#002F41 ;
+            color: white;
+        }
+        #icono {
+        width: 400px; /* Ancho para el icono pequeño */
+        height: auto; /* Altura se ajustará automáticamente para mantener la proporción original */
+        
+        }
+    </style>
+  </style>
+</head>
+<body>
+    <h2>Calculadora de Prestamo</h2>
+    <form id="loanForm">
+        <label for="nombre">Nombre:</label>
+        <input type="text" id="nombre" name="nombre" required><br><br>
+        
+        <label for="monto">Monto del prestamo:</label>
+        <input type="number" id="monto" name="monto" required><br><br>
+        
+        <label for="interes">Tasa de interes (%):</label>
+        <input type="number" id="interes" name="interes" step="0.01" required><br><br>
+        
+        <label for="fecha">Fecha de inicio:</label>
+        <input type="date" id="fecha" name="fecha" required><br><br>
+        
+        <label for="meses">Numero de meses a pagar:</label>
+        <input type="number" id="meses" name="meses" required><br><br>
+        
+        <button type="button" onclick="calcularCuotas()">Calcular Cuotas</button>
+    </form>
+    
+    <h2>Tabla de Pagos</h2>
+    <table id="tablaPagos">
+        <thead>
+            <tr>
+                <th>Cuota</th>
+                <th>Interes</th>
+                <th>Capital</th>
+                <th>Cuota Total</th>
+                <th>Saldo Capital</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Aquí se mostrarán los resultados de los cálculos -->
+        </tbody>
+    </table>
+    
+    <script>
+    function calcularCuotas() {
+        let monto = parseFloat(document.getElementById('monto').value);
+        let interes = parseFloat(document.getElementById('interes').value) / 100;
+        let meses = parseInt(document.getElementById('meses').value);
+        
+        let cuota = monto * (interes / 12) / (1 - Math.pow(1 + (interes / 12), -meses));
+        
+        let tabla = document.getElementById('tablaPagos').getElementsByTagName('tbody')[0];
+        tabla.innerHTML = '';
+        
+        for (let i = 1; i <= meses; i++) {
+            let interesCuota = monto * (interes / 12);
+            let capitalCuota = cuota - interesCuota;
+            
+            tabla.innerHTML += `
+                <tr>
+                    <td>${i}</td>
+                    <td>${interesCuota.toFixed(2)}</td>
+                    <td>${capitalCuota.toFixed(2)}</td>
+                    <td>${cuota.toFixed(2)}</td>
+                    <td>${(monto - capitalCuota).toFixed(2)}</td>
+                </tr>
+            `;
+            
+            monto -= capitalCuota;
+        }
+    }
+    </script>
+    </body>
+    </html>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>para eve<3</title>
+<style>
+    .movible {
+        position: relative;
+        left: 0;
+        transition: left 0.5s;
+    }
+    .movible.movido {
+        left: 100px;
+    }
+</style>
+</head>
+<body>
+<p>me compra un hilux?</p>
+<a href="laotra.html">si</a>
+<button id="btnNo" class="movible">No</button>
+
+<script>
+    const btnNo = document.getElementById('btnNo');
+
+    btnNo.addEventListener('click', () => {
+        btnNo.classList.toggle('movido');
+    });
+</script>
+
+</body>
+</html>
