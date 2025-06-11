@@ -66,13 +66,13 @@
 </header>
 <img align="left" id="icono" src="logo.png">
 <form id="constanciaForm">
-    <label for="nombre">Nombre del Interesado:</label>
+    <label for="nombre">Nombre del receptor:</label>
     <input type="text" id="nombre" name="nombre" required>
 
     <label for="identificacion">Tipo y No. de Identificación:</label>
     <input type="text" id="identificacion" name="identificacion" required>
 
-    <label for="acto">Tipo de Acto Jurídico (ej. compraventa, donación):</label>
+    <label for="acto">Tipo de documento:</label>
     <input type="text" id="acto" name="acto" required>
 
     <label for="num_escritura">Número de Escritura:</label>
@@ -87,7 +87,7 @@
     <label for="lugar">Lugar de Emisión:</label>
     <input type="text" id="lugar" name="lugar" required>
 
-    <label for="notario">Nombre del Notario o Responsable:</label>
+    <label for="notario">Nombre del empleado de la corporacion:</label>
     <input type="text" id="notario" name="notario" required>
 
     <button type="button" onclick="generarPDF()">Generar Constancia</button>
@@ -110,13 +110,13 @@ function generarPDF() {
             <h2 style="text-align:center;">CONSTANCIA DE EGRESO DE ESCRITURAS</h2>
             <p style="text-align:right;"><strong>${lugar}, ${fecha_emision}</strong></p>
             <br>
-            <p>Por medio de la presente, se hace constar que el/la C. <strong>${nombre}</strong>, identificado(a) con <strong>${identificacion}</strong>, ha concluido satisfactoriamente el trámite de egreso de escrituras correspondiente a <strong>${acto}</strong>, bajo el número de escritura <strong>${num_escritura}</strong>, de fecha <strong>${fecha_escritura}</strong>, protocolizada ante esta Notaría.</p>
+            <p>Por medio de la presente, se hace constar que <strong>${nombre}</strong>, identificado(a) con el DPI: <strong>${identificacion}</strong>, ha solicitado egreso de escrituras correspondiente a <strong>${acto}</strong>, bajo el número de escritura <strong>${num_escritura}</strong>, de fecha <strong>${fecha_escritura}</strong>, y se ha aprobado.</p>
             <p>Se expide la presente constancia para los fines legales que al interesado convengan.</p>
             <br><br>
             <p>Atentamente,</p>
             <br>
             <p><strong>${notario}</strong></p>
-            <p><em>Notario</em></p>
+            <p><em>Empleado de la corporacion</em></p>
             <br>
             <div style="width:200px; height:60px; border-bottom:1px solid #000; margin-bottom:10px;"></div>
             <p style="font-size:12px; color:gray;">Sello y firma</p>
