@@ -3,69 +3,68 @@
 
 <head>
   <title>Calculadora de Préstamo</title>
-  <style><style>
-        body {
-            font-family: 'Arial', sans-serif;
-            text-align: center;
-            margin: 50px;
-        }
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      text-align: center;
+      margin: 50px;
+    }
 
-        form {
-            max-width: 400px;
-            margin: 0 auto;
-        }
+    form {
+      max-width: 400px;
+      margin: 0 auto;
+    }
 
-        label {
-            display: block;
-            margin-bottom: 8px;
-        }
+    label {
+      display: block;
+      margin-bottom: 8px;
+    }
 
-        input {
-            width: 100%;
-            padding: 8px;
-            margin-bottom: 16px;
-            box-sizing: border-box;
-        }
+    input {
+      width: 100%;
+      padding: 8px;
+      margin-bottom: 16px;
+      box-sizing: border-box;
+    }
 
-        button {
-            background-color: #002F41;
-            color: #fff;
-            padding: 10px 15px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 16px;
-        }
+    button {
+      background-color: #002F41;
+      color: #fff;
+      padding: 10px 15px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 16px;
+    }
 
-        #tablaPagos {
-            margin-top: 20px;
-            width: 100%;
-            border-collapse: collapse;
-        }
+    #tablaPagos {
+      margin-top: 20px;
+      width: 100%;
+      border-collapse: collapse;
+    }
 
-        #tablaPagos th,
-        #tablaPagos td {
-            border: 1px solid #C69680;
-            padding: 8px;
-            text-align: center;
-        }
+    #tablaPagos th,
+    #tablaPagos td {
+      border: 1px solid #C69680;
+      padding: 8px;
+      text-align: center;
+    }
 
-        #tablaPagos th {
-            background-color: #002F41;
-            color: white;
-        }
+    #tablaPagos th {
+      background-color: #002F41;
+      color: white;
+    }
 
-        #icono {
-            width: 400px;
-            height: auto;
-        }
-    </style>
+    #icono {
+      width: 400px;
+      height: auto;
+    }
   </style>
 </head>
 
 <body>
   <h1>Calculadora de Préstamo</h1>
-      <img src="logo2.jpg" id="icono" align="left">
+  <img src="logo2.jpg" id="icono" align="left">
 
   <form id="loan-form">
     <label for="amount">Monto del Préstamo:</label>
@@ -110,29 +109,29 @@
       const amount = parseFloat(document.getElementById("amount").value);
       const interest = parseFloat(document.getElementById("interest").value) / 100 / 12;
       const years = parseFloat(document.getElementById("years").value);
-      const name = document.getElementById("name").value;
       const months = years * 12;
       const payment = (amount * interest) / (1 - Math.pow(1 + interest, -months));
       let totalInterest = 0;
       let totalPrincipal = 0;
+      let remainingBalance = amount;
 
       const loanTable = document.getElementById("tablaPagos").getElementsByTagName("tbody")[0];
       loanTable.innerHTML = "";
 
       for (let i = 1; i <= months; i++) {
-        const interest_amount = amount * interest;
-        const principal_amount = payment - interest_amount;
-        const remaining_balance = amount - totalPrincipal;
-        totalInterest += interest_amount;
-        totalPrincipal += principal_amount;
+        const interestAmount = remainingBalance * interest;
+        const principalAmount = payment - interestAmount;
+        remainingBalance -= principalAmount;
+        totalInterest += interestAmount;
+        totalPrincipal += principalAmount;
 
         const row = document.createElement("tr");
         row.innerHTML = `
           <td>${i}</td>
-          <td>\[${interest_amount.toFixed(2)}\]</td>
-          <td>\[${principal_amount.toFixed(2)}\]</td>
+          <td>\[${interestAmount.toFixed(2)}\]</td>
+          <td>\[${principalAmount.toFixed(2)}\]</td>
           <td>\[${payment.toFixed(2)}\]</td>
-          <td>\[${remaining_balance.toFixed(2)}\]</td>
+          <td>\[${remainingBalance.toFixed(2)}\]</td>
         `;
         loanTable.appendChild(row);
       }
