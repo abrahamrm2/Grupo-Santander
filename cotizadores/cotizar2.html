@@ -3,22 +3,63 @@
 
 <head>
   <title>Calculadora de Préstamo</title>
-  <style>
-    table {
-      width: 100%;
-      border-collapse: collapse;
-    }
+  <style><style>
+        body {
+            font-family: 'Arial', sans-serif;
+            text-align: center;
+            margin: 50px;
+        }
 
-    th,
-    td {
-      padding: 8px;
-      text-align: left;
-      border-bottom: 1px solid #ddd;
-    }
+        form {
+            max-width: 400px;
+            margin: 0 auto;
+        }
 
-    th {
-      background-color: #f2f2f2;
-    }
+        label {
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        input {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 16px;
+            box-sizing: border-box;
+        }
+
+        button {
+            background-color: #002F41;
+            color: #fff;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        #tablaPagos {
+            margin-top: 20px;
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        #tablaPagos th,
+        #tablaPagos td {
+            border: 1px solid #C69680;
+            padding: 8px;
+            text-align: center;
+        }
+
+        #tablaPagos th {
+            background-color: #002F41;
+            color: white;
+        }
+
+        #icono {
+            width: 400px;
+            height: auto;
+        }
+    </style>
   </style>
 </head>
 
@@ -40,7 +81,7 @@
     <button type="button" onclick="calculateLoan()">Calcular</button>
   </form>
   <br>
-  <table id="loan-table">
+  <table id="tablaPagos">
     <thead>
       <tr>
         <th>Pago</th>
