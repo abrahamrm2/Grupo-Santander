@@ -107,6 +107,9 @@
         <label for="lote">Numero de dpi:</label>
         <input type="number" id="lote" name="lote" required>
 
+        <label for="cuota">Cuota Mensual:</label>
+        <input type="number" id="cuota" name="cuota" required>
+
         <button type="button" onclick="generarPDF()">Generar solicitud</button>
     </form>
     </nav>
@@ -117,6 +120,8 @@
             const fecha = document.getElementById('fecha').value;
             const monto = document.getElementById('monto').value;
             const lote = document.getElementById('lote').value;
+            const cuota = document.getElementById('cuota').value;
+
 
             const contenidoHTML = `
                 <img id="iconos" src="logo.png" alt="logo">
@@ -131,7 +136,7 @@
                 del crédito que está considerando. Este encuentro es fundamental para establecer una comunicación efectiva y
                 transparente, permitiendo que ambas partes comprendan completamente las expectativas y responsabilidades asociadas con
                 la solicitud. El monto de la solicitud haciende a Q.${monto}.00 quetzales. Tambien acepta las politicas de cobro  mensual
-                 e intereses anuales de inversiones Santander que son los pagos mensuales el primer dia de cada mes, que son los pagos mensuales ya estipulados en la cotizacion. En dado caso exisita mora se cobrará Q.5.00 de mora por cada dia atrasado en el pago, Q.100.00 de multa por cada mes insolvente y 3 meses de limite antes de proceder legalmente. </p>
+                 e intereses anuales de inversiones Santander que corresponde a la cantidad de ${cuota} . Los pagos mensuales el primer dia de cada mes, estos son los pagos mensuales ya estipulados en la cotizacion. En dado caso exisita mora se cobrará Q.5.00 de mora por cada dia atrasado en el pago, Q.100.00 de multa por cada mes insolvente y 3 meses de limite antes de proceder legalmente. </p>
                 <br>
                 <p align="center">Atentamente.</p>
                 <p>El cliente: ${nombre} Queda a la espera de su respuesta.</p>
