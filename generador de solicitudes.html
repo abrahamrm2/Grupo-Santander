@@ -9,7 +9,6 @@
         body {
             font-family: 'Arial', sans-serif;
             margin: 50px;
-        
         }
 
         form {
@@ -57,12 +56,13 @@
             background-color:#002F41 ;
             color: white;
         }
-        #icono {
-        width: 400px; /* Ancho para el icono pequeño */
-        height: auto; /* Altura se ajustará automáticamente para mantener la proporción original */
         
+        #icono {
+            width: 400px; /* Ancho para el icono pequeño */
+            height: auto; /* Altura se ajustará automáticamente para mantener la proporción original */
         }
-         header {
+        
+        header {
             background-color: #083c9b;
             color: #fff;
             padding: 15px;
@@ -76,89 +76,110 @@
             justify-content: space-around;
         }
 
-       
         #iconos {
-        width: 150px; /* Ancho para el icono pequeño */
-        height: auto; /* Altura se ajustará automáticamente para mantener la proporción original */
-        text-align: left;
+            width: 150px; /* Ancho para el icono pequeño */
+            height: auto; /* Altura se ajustará automáticamente para mantener la proporción original */
+            text-align: left;
         }
-        si{
-            color: black;
 
+        si {
+            color: black;
+        }
+        
+        .firma {
+            margin-top: 40px;
+            text-align: center;
+        }
+
+        .linea-firma {
+            border-top: 1px solid black;
+            width: 300px;
+            margin: 0 auto;
         }
     </style>
 </head>
 <body bgcolor="#002F41">
 <header>
     <nav>
-    <h1>Formulario de Solicitud de Crédito</h1>
-</header>
-    <img align="left" id="icono"= src="logo.png">
-    <form id="solicitudForm">
-        <label for="nombre">Nombre del Solicitante:</label>
-        <input type="text" id="nombre" name="nombre" required>
-
-        <label for="fecha">Fecha de Solicitud:</label>
-        <input type="date" id="fecha" name="fecha" required>
-
-        <label for="monto">Monto Solicitado:</label>
-        <input type="number" id="monto" name="monto" required>
-
-        <label for="lote">Numero de dpi:</label>
-        <input type="number" id="lote" name="lote" required>
-
-        <label for="cuota">Cuota Mensual:</label>
-        <input type="number" id="cuota" name="cuota" required>
-
-        <button type="button" onclick="generarPDF()">Generar solicitud</button>
-    </form>
+        <h1>Formulario de Solicitud de Crédito</h1>
     </nav>
+</header>
+<img align="left" id="icono" src="logo.png">
+<form id="solicitudForm">
+    <label for="nombre">Nombre del Solicitante:</label>
+    <input type="text" id="nombre" name="nombre" required>
 
-    <script id="si">
-        function generarPDF() {
-            const nombre = document.getElementById('nombre').value;
-            const fecha = document.getElementById('fecha').value;
-            const monto = document.getElementById('monto').value;
-            const lote = document.getElementById('lote').value;
-            const cuota = document.getElementById('cuota').value;
+    <label for="fecha">Fecha de Solicitud:</label>
+    <input type="date" id="fecha" name="fecha" required>
 
+    <label for="monto">Monto Solicitado:</label>
+    <input type="number" id="monto" name="monto" required>
 
-            const contenidoHTML = `
-                <img id="iconos" src="logo.png" alt="logo">
-                <h1>Carta de Solicitud de Crédito</h1>
-                <p>A nombre de: ${nombre}</p>
-                <p>Fecha: ${fecha}</p>
-                <p>DPI:${lote}
-                <p> Consejo de administracion de Grupo Santander,</p>
-                <p>${nombre} se acerca a la agencia "Inversiones Santander" con el propósito de solicitar un credito en la entidad financiera. El cliente busca obtener el respaldo
-                financiero necesario por parte de la corporación. Este paso inicial involucra la interacción directa con los
-                representantes de la agencia, donde el cliente expone sus cualidades financieras y discute las condiciones y términos
-                del crédito que está considerando. Este encuentro es fundamental para establecer una comunicación efectiva y
-                transparente, permitiendo que ambas partes comprendan completamente las expectativas y responsabilidades asociadas con
-                la solicitud. El monto de la solicitud haciende a Q.${monto}.00 quetzales. Tambien acepta las politicas de cobro  mensual
-                 e intereses anuales de inversiones Santander que corresponde a la cantidad de ${cuota} . Los pagos mensuales el primer dia de cada mes, estos son los pagos mensuales ya estipulados en la cotizacion. En dado caso exisita mora se cobrará Q.5.00 de mora por cada dia atrasado en el pago, Q.100.00 de multa por cada mes insolvente y 3 meses de limite antes de proceder legalmente. </p>
+    <label for="lote">Número de DPI:</label>
+    <input type="number" id="lote" name="lote" required>
+
+    <label for="cuota">Cuota Mensual:</label>
+    <input type="number" id="cuota" name="cuota" required>
+
+    <button type="button" onclick="generarPDF()">Generar solicitud</button>
+</form>
+
+<script id="si">
+    function generarPDF() {
+        const nombre = document.getElementById('nombre').value;
+        const fecha = document.getElementById('fecha').value;
+        const monto = document.getElementById('monto').value;
+        const lote = document.getElementById('lote').value;
+        const cuota = document.getElementById('cuota').value;
+
+        const contenidoHTML = `
+            <img id="iconos" src="logo.png" alt="logo">
+            <h1>Carta de Solicitud de Crédito</h1>
+            <p>A nombre de: ${nombre}</p>
+            <p>Fecha: ${fecha}</p>
+            <p>DPI: ${lote}</p>
+            <p>Consejo de administración de Grupo Santander,</p>
+            <p>${nombre} se acerca a la agencia "Inversiones Santander" con el propósito de solicitar un crédito en la entidad financiera. El cliente busca obtener el respaldo financiero necesario por parte de la corporación. Este paso inicial involucra la interacción directa con los representantes de la agencia, donde el cliente expone sus cualidades financieras y discute las condiciones y términos del crédito que está considerando. Este encuentro es fundamental para establecer una comunicación efectiva y transparente, permitiendo que ambas partes comprendan completamente las expectativas y responsabilidades asociadas con la solicitud. El monto de la solicitud asciende a Q.${monto}.00 quetzales. También acepta las políticas de cobro mensual e intereses anuales de inversiones Santander que corresponde a la cantidad de ${cuota}. Los pagos mensuales son el primer día de cada mes, estos son los pagos mensuales ya estipulados en la cotización. En dado caso exista mora se cobrará Q.5.00 de mora por cada día atrasado en el pago, Q.100.00 de multa por cada mes insolvente y 3 meses de límite antes de proceder legalmente.</p>
+            <br>
+            <p align="center">Atentamente.</p>
+            <p>El cliente: ${nombre} queda a la espera de su respuesta.</p>
+            <br>
+            <div class="firma">
+                <div class="linea-firma"></div>
+                <p>${nombre}</p>
+            </div>
+            <br>
+            <div class="firma">
+                <div class="linea-firma"></div>
+                <p>Erick Gilberto Rodriguez Colindres</p>
                 <br>
-                <p align="center">Atentamente.</p>
-                <p>El cliente: ${nombre} Queda a la espera de su respuesta.</p>
                 <br>
-                <p align="left">Nestor Gonzalo Rodriguez Colindres</p>
-                <p align="right">${nombre}</p>
-                <p align="center">abogado</p>
+                <br>
+                <div class="linea-firma"></div>
+                <p>Nestor Gonzalo Rodriguez Colindres</p>
+                <br>
+                <br>
+                <br>
+                <div class="linea-firma"></div>
+                <p>Abogado</p>
 
-            `;
 
-            const elemento = document.createElement('div');
-            elemento.innerHTML = contenidoHTML;
+            </div>
+        `;
 
-            html2pdf(elemento, {
-                margin: 10,
-                filename: '${nombre}.pdf',
-                image: { type: 'jpeg', quality: 0.98 },
-                html2canvas: { scale: 2 },
-                jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
-            });
-        }
-    </script>
+        const elemento = document.createElement('div');
+        elemento.innerHTML = contenidoHTML;
+
+        html2pdf(elemento, {
+            margin: 10,
+            filename: '${nombre}.pdf',
+            image: { type: 'jpeg', quality: 0.98 },
+            html2canvas: { scale: 2 },
+            jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+        });
+    }
+</script>
 
 </body>
 </html>
+
